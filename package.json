@@ -1,5 +1,5 @@
 {
-  "name": "paperless_office",
+  "name": "test-site",
   "private": true,
   "scripts": {
     "start": "meteor run"
