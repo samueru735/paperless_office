@@ -1,10 +1,22 @@
+
 Template.homeIndex.helpers({
 	featured: function(){
 		return Documents.featured();
 	}
 });
 
-/*Template.uploadForm.onCreated(function () {
+Template.uploadedFiles.helpers({
+  uploadedFiles: function () {
+    return Images.find();
+  }
+});
+Template.file.helpers({
+  imageFile: function () {
+    return Images.findOne();
+  }
+});
+
+Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
 });
 
@@ -41,4 +53,4 @@ Template.uploadForm.events({
       upload.start();
     }
   }
-}); */
+}); 
