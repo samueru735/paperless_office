@@ -4,7 +4,10 @@
       {{#each file in uploadedFiles.each}}
         <li>
           <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
-        </li>
+        </li>        
+        {{#each label in file.meta.labels.[0]}}
+        	<span class="label label-default">{{label}}</span>
+      	{{/each}}
       {{/each}}
     </ul>
   {{else}}

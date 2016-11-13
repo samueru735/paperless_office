@@ -4,7 +4,22 @@ Template.homeIndex.helpers({
 		return Documents.featured();
 	}
 });
-
+Template.labelSelector.helpers({
+  labels: function(){
+    return Labels.labelsAvailable();
+  }  
+});
+Template.labelSelector.rendered = function(){
+  $("#labelSelector").select2({
+    placeholder:"select some labels",
+    allowClear:"true"    
+  });
+}
+Template.labelSelector.events({
+  'click': function(){
+    console.log("selected labels: ", $("#labelSelector").val());
+  }
+})
 Template.uploadedFiles.helpers({
   uploadedFiles: function () {
     return Images.find();
@@ -33,6 +48,9 @@ Template.uploadForm.events({
       // multiple files were selected
       var upload = Images.insert({
         file: e.currentTarget.files[0],
+        meta: {
+          labels: [$("#labelSelector").val()]
+        },
         streams: 'dynamic',
         chunkSize: 'dynamic'
       }, false);
