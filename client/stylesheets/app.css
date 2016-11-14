@@ -2,6 +2,11 @@ body{
 	padding-top: 50px;
 }
 
+.imageFile{
+	margin: 1em;
+	display: inline-block;
+}
+
 // navbar
 #navbar {float: right;}
 .login {float: right;}

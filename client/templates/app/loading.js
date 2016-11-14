@@ -15,5 +15,5 @@ Template.loading.destroyed = function () {
   }
 };
 
-var message = '<p class="loading-message">Loading office</p>';
+var message = '<p class="loading-message">Loading paperless office</p>';
 var spinner = '<div class="sk-spinner sk-spinner-rotating-plane"></div>';

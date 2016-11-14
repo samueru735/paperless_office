@@ -16,8 +16,12 @@
     </div>
     {{>uploadForm}}
     {{>labelSelector}}
+    {{#if currentUser}}  
     {{>uploadedFiles}}
+    
     {{>file}}
+    {{/if}}
+    
   </div>
   <div class="container marketing">
     <div class="row">
@@ -26,4 +30,5 @@
       {{/each}}
     </div>
   </div>
+
 </template>

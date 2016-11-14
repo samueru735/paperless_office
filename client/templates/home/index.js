@@ -9,6 +9,7 @@ Template.labelSelector.helpers({
     return Labels.labelsAvailable();
   }  
 });
+
 Template.labelSelector.rendered = function(){
   $("#labelSelector").select2({
     placeholder:"select some labels",
@@ -21,15 +22,24 @@ Template.labelSelector.events({
   }
 })
 Template.uploadedFiles.helpers({
-  uploadedFiles: function () {
+
+  uploadedFiles: function () {        
     return Images.find();
   }
 });
 Template.file.helpers({
-  imageFile: function () {
-    return Images.findOne();
+  imageFiles: function () {
+    return Images.find();
   }
 });
+/*Template.homeIndex.helpers({  
+  reload: function(){
+    
+    //  document.location.reload(true)
+    
+    //
+  }
+}); */
 
 Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
