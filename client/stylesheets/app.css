@@ -17,13 +17,22 @@ body{
 .error-actions .btn { margin-right:10px; }
 
 
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: #EF92A5;
+  text-decoration: none;
+}
+
+
 // loading
+
 .loading-message {
   color: #fff;
   font-size: 25px;
   font-weight: 300;
   font-family: sans-serif;
 }
+
 
 .sk-spinner-rotating-plane.sk-spinner {
   background-color: #fff;
