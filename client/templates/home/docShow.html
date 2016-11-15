@@ -1,0 +1,17 @@
+<template name="docShow">
+<h1>Details of doc</h1>
+	<h3>{{image.name}}</h3>
+	{{#each label in image.meta.labels.[0]}}
+	<div class="record-container" data-record-id="{{@index}}">
+		<h4><span class="label label-default">{{label}} </span></h4>
+	  {{> EditableTextField dataKey=image._id dataValue=labelValue emptyText="edit" }}
+	</div>
+    	<h4><span class="label label-default">{{label}} 
+    	<button id="btnEdit"><i class="glyphicon glyphicon-edit"></i></button>
+    	<button id="btnRemove"><i class="glyphicon glyphicon-remove"></i></button></span></h4>
+
+    {{/each}}
+	<img  src="{{image.link}}" alt="{{image.name}}" width="500" />
+
+</template>
+

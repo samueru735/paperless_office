@@ -1,21 +1,39 @@
-body {
-  padding-top: 50px;
+body{
+	padding-top: 50px;
 }
+
+.imageFile{
+	margin: 1em;
+	display: inline-block;
+}
+
+// navbar
+#navbar {float: right;}
+.login {float: right;}
+
+// 404
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+
+
 
 .nav > li > a:hover, .nav > li > a:focus {
   background-color: #EF92A5;
   text-decoration: none;
 }
 
-.error-template {padding: 40px 15px;text-align: center;}
-.error-actions {margin-top:15px;margin-bottom:15px;}
-.error-actions .btn { margin-right:10px; }
+
+// loading
+
 .loading-message {
   color: #fff;
   font-size: 25px;
   font-weight: 300;
   font-family: sans-serif;
 }
+
+
 .sk-spinner-rotating-plane.sk-spinner {
   background-color: #fff;
 }

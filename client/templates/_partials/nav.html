@@ -18,7 +18,13 @@
           <li><a href="{{pathFor 'homeRegister'}}">Register</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a class="pull-left" href="{{pathFor 'homeLogin'}}">{{loginStatus}}Login</a></li>
+          <li><a class="pull-left" href="{{pathFor 'homeLogin'}}">{{loginStatus}}Login(Bob)</a></li>
+          <li>
+              {{#if isInRole 'Administrator'}}
+                <a href="{{pathFor 'homeAdmin'}}">Secret admin stuff</a>
+              {{/if}}
+          </li>
+            {{> loginButtons}}
         </ul>
       </div><!--/.nav-collapse -->
     </div>

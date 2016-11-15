@@ -1,0 +1,11 @@
+<template name='labelSelector'>
+<h3>Attach labels</h3>  
+
+  <select class="js-example-basic-multiple js-states form-control" id="labelSelector" multiple="multiple">
+     {{#each label in labels}}
+        <option>{{label.name}}</option>
+     {{/each}}
+  </select>
+  <button>klik</button>
+
+</template> 
