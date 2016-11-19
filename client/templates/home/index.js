@@ -9,24 +9,38 @@ Template.labelSelector.helpers({
     return Labels.labelsAvailable();
   }  
 });
+
 Template.docShow.events({
   'click #btnEdit': function(){
     console.log("editing");
   },
   'click #btnRemove': function(){
-    console.log("removing");
+  /*  let dataKey = $(e.target).attr("data-key"),
+    recordId = $(e.target).closest(".record-container").attr("data-record-id");
+    console.log("dataKey: " + image._id);
+    console.log("recordId: " + recordId);
+    console.log("removing"); */
   },
   "edited .editable"(e, instance, newValue){
     // pick up the field that was edited
+
     let dataKey = $(e.target).attr("data-key"),
-      recordId = $(e.target).closest(".record-container").attr("data-record-id"),
+      recordId = $(e.target).closest(".record-container").attr("data-record-id"),            
       update = {};
+    var image = Images.findOne({'_id':dataKey});
+    var labelToChange = image.meta.labels[recordId];
+   //var labelToChange = label; //$(e.target).closest(".label label-default").attr("label-content");
     console.log("dataKey: " + dataKey);
     console.log("recordId: " + recordId);
     console.log("new value:" + newValue );
+    console.log("Label to change:" + labelToChange );
     if(dataKey && recordId){
       update[dataKey] = newValue;
-      Images.update({_id:dataKey}, {$set:{"meta":{"labels.0.$":newValue }}});      
+      //var id = 
+      var newLabels = image.meta.labels;
+      newLabels[recordId] = newValue;
+     Images.update({'_id':dataKey}, {$set:{"meta":{"labels":newLabels }}});      
+     //image.update({'labels': labelToChange }, {$set:{"meta":{"labels.$":newValue }}});      
     }
   }
 })
@@ -72,7 +86,7 @@ Template.uploadForm.events({
       var upload = Images.insert({
         file: e.currentTarget.files[0],
         meta: {
-          labels: [$("#labelSelector").val()],
+          labels: $("#labelSelector").val(),
           date: new Date()
         },
         streams: 'dynamic',

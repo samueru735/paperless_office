@@ -1,10 +1,19 @@
 body{
 	padding-top: 50px;
+  margin: 1em;
 }
 
 .imageFile{
-	margin: 1em;
-	display: inline-block;
+}
+.hidden{
+  visibility: hidden;
+}
+.detailImage{
+  margin: 2em;
+}
+
+iframe{
+  display: block;
 }
 
 // navbar
