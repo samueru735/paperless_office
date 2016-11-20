@@ -4,7 +4,7 @@
       {{#each file in uploadedFiles.each}}
         <li>
          <!-- <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a> -->
-          <a href="{{pathFor 'docShow'}}?id={{file._id}}">{{file.name}}</a>
+          <a href="{{pathFor 'docShow'}}?id={{file._id}}">{{file.name}} {{file.meta.date}}</a>
         </li>        
         {{#each label in file.meta.labels}}
         	<span class="label label-default">{{label}}</span>

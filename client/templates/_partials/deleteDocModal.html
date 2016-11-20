@@ -1,0 +1,24 @@
+<template name="deleteDocModal">
+  <div class="modal " id="deleteDocModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Delete document</h4>
+        </div>
+
+        <div class="modal-body">
+          <label for="delete">Are you sure you want to delete this document?</label>          
+        </div>
+
+        <div class="modal-footer">
+        <a href="{{pathFor 'docShow'}}?id={{image._id}}&action=deleteDoc">
+          <button type="button" class="btn btn-primary" id="btnConfirmDelete">Delete</button>
+        </a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
