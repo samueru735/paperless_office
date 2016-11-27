@@ -1,0 +1,22 @@
+<template name="search">
+  <form id="search">
+    <input type="text" id="searchValue" placeholder="Enter search terms here."/>
+    <button>Search</button>
+  </form>
+  <hr/>  
+  <h1>Search results</h1>
+   {{#if images.count}}
+    <ul>
+      {{#each file in images.each}}
+        <li>
+          <a href="{{pathFor 'docShow'}}?id={{file._id}}">{{file.name}} {{file.meta.date}}</a>
+        </li>        
+        {{#each label in file.meta.labels}}
+          <span class="label label-default">{{label}}</span>
+        {{/each}}
+      {{/each}}
+    </ul>
+  {{else}}    
+  {{/if}}
+
+</template>

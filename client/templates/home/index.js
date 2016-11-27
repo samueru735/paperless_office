@@ -9,6 +9,33 @@ Template.labelSelector.helpers({
     return Labels.labelsAvailable();
   }  
 });
+Template.search.events({
+    "submit #search": function (e) {
+      e.preventDefault();
+      var searchValue = $("#searchValue").val();
+      console.log("all images", Images);
+      console.log("searchValue: ", searchValue);
+      console.log("userId: ", Session.get("newId"));
+      var foundImages = Images.find(
+        {"meta.labels":searchValue});
+        
+      //return foundImages;
+      Session.set("searchValue", $("#searchValue").val());      
+      //Session.set("foundImages", foundImages);
+    }
+  });
+Template.search.helpers({
+  images: function() {
+    Meteor.subscribe("search", Session.get("searchValue"));
+    if (Session.get("searchValue")) {
+      var searchValue = Session.get("searchValue");
+      console.log("got session value" + searchValue);
+     // $(".searchResults").css('visibility', 'visible');
+      return Images.find({"userId": Session.get("newId"),
+        "meta.labels":searchValue});
+      }    
+  }
+});
 
 Template.docShow.events({
   'click #btnEdit': function(){

@@ -8,6 +8,9 @@ body{
 .hidden{
   visibility: hidden;
 }
+.searchResults{
+  visibility: hidden;
+}
 .detailImage{
   margin: 2em;
 }
