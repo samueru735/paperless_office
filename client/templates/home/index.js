@@ -20,7 +20,16 @@ Template.search.events({
         {"meta.labels":searchValue});
         
       //return foundImages;
-      Session.set("searchValue", $("#searchValue").val());      
+      Session.set("searchValue", $("#searchValue").val());  
+      Meteor.call("ocrImage", "", function(error, result) {
+            if(error){
+               console.log("error", error);
+            }
+            else{
+              console.log("result:  ", result.content); //results.data should be a JSON object      console.log("error", error);
+            }
+        
+          });    
       //Session.set("foundImages", foundImages);
     }
   });
@@ -116,6 +125,7 @@ Template.uploadForm.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
+      console.log("url: " , e.currentTarget.files[0]);
       var upload = Images.insert({
         file: e.currentTarget.files[0],
         meta: {
@@ -135,6 +145,15 @@ Template.uploadForm.events({
           alert('Error during upload: ' + error);
         } else {
           alert('File "' + fileObj.name + '" successfully uploaded');
+          Meteor.call("ocrImage", function(error, result) {
+            if(error){
+               console.log("error", error);
+            }
+            else{
+              console.log("result:  ", result.content); //results.data should be a JSON object      console.log("error", error);
+            }
+        
+          });
         }
         template.currentUpload.set(false);
       });
