@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-
+import { request } from 'meteor/froatsnook:request';
 Meteor.startup(() => {
   // code to run on server at startup
-  Houston.add_collection(Meteor.users);
+  var connectHandler = WebApp.connectHandlers;
+
 }); 
