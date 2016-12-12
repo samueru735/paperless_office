@@ -23,5 +23,11 @@
     </div>
 	<img class="detailImage" src="{{image.link}}" alt="{{image.name}}" width="500" />
 
+	<div>
+		{{#each text in image.meta.text}}
+		<p>{{text}}</p>
+		{{/each}}
+	</div>
+
 </template>
 
