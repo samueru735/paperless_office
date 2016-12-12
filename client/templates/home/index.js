@@ -1,3 +1,41 @@
+var options = {
+  keepHistory: 1000 * 60 * 5,
+  localSearch: true
+};
+
+var fields = ['name', 'meta.labels'];
+
+PackageSearch = new SearchSource('Images', fields, options);
+
+console.log(PackageSearch.getMetadata());
+
+Template.homeSearch.helpers({
+  getPackages: function() {
+		var result = PackageSearch.getData({
+		      transform: function(matchText, regExp) {
+		        return matchText.replace(regExp, "<b>$&</b>")
+		      },
+		      sort: {isoScore: -1}
+		    });
+				return result;
+  },
+
+	isLoading: function() {
+    return PackageSearch.getStatus().loading;
+  }
+});
+Template.searchBox.events({
+  "keyup #search-box": _.throttle(function(e) {
+    var text = $(e.target).val().trim();
+    //(Session.get("newId")===(Session.get("oldId"))) ? PackageSearch.search(text) : break ;
+    if (Session.get("newId")===(Session.get("oldId")))  PackageSearch.search(text);
+
+  }, 200)
+});
+
+
+
+
 Template.homeIndex.helpers({
 	featured: function(){
 		return Documents.featured();
@@ -6,7 +44,7 @@ Template.homeIndex.helpers({
 Template.labelSelector.helpers({
   labels: function(){
     return Labels.labelsAvailable();
-  }  
+  }
 });
 Template.search.events({
     "submit #search": function (e) {
@@ -17,9 +55,9 @@ Template.search.events({
       console.log("userId: ", Session.get("newId"));
       var foundImages = Images.find(
         {"meta.labels":searchValue});
-                
-       
-       
+
+
+
          Meteor.call("ocrImage", "", function(error, result) {
             if(error){
                console.log("error", error);
@@ -27,26 +65,26 @@ Template.search.events({
             else{
               var imageData = result.content;
               imageData = JSON.parse(imageData);
-              var lines = imageData.regions[0].lines;              
+              var lines = imageData.regions[0].lines;
               var length = lines.length;
-              var sentences = [length];              
+              var sentences = [length];
               console.log(imageData);
               console.log("length: " +  length);
               var counter = 0;
               var text = "";
-              $.each(lines, function(i,line){                
+              $.each(lines, function(i,line){
                 sentences[counter] = "";
-                $.each(line.words, function(j, word){                
-                    sentences[counter] += (word.text) + " ";                    
-                })                
-                counter++;                             
-              }); 
+                $.each(line.words, function(j, word){
+                    sentences[counter] += (word.text) + " ";
+                })
+                counter++;
+              });
               console.log(sentences);
             }
-          }); 
+          });
       //return foundImages;
-      Session.set("searchValue", $("#searchValue").val());  
-      
+      Session.set("searchValue", $("#searchValue").val());
+
       //Session.set("foundImages", foundImages);
     }
   });
@@ -59,7 +97,7 @@ Template.search.helpers({
      // $(".searchResults").css('visibility', 'visible');
       return Images.find({"userId": Session.get("newId"),
         "meta.labels":searchValue});
-      }    
+      }
   }
 });
 
@@ -69,14 +107,14 @@ Template.docShow.events({
   },
   'click #btnDeleteDoc': function(e){
     e.preventDefault();
-    
+
     $('#deleteDocModal').modal('show');
   },
   "edited .editable"(e, instance, newValue){
     // pick up the field that was edited
 
     var dataKey = $(e.target).attr("data-key");
-      var recordId = $(e.target).closest(".record-container").attr("data-record-id");                  
+      var recordId = $(e.target).closest(".record-container").attr("data-record-id");
       //($(e.target).closest(".record-container").attr("data-record-id") === null)
       //? let recordId = "0" : recordId = $(e.target).closest(".record-container").attr("data-record-id"),
        let update = {};
@@ -93,26 +131,26 @@ Template.docShow.events({
     console.log("Label to change:" + labelToChange );
     if(dataKey && recordId){
       update[dataKey] = newValue;
-      //var id = 
+      //var id =
     var newLabels = image.meta.labels;
     newLabels[recordId] = newValue;
-    Images.update({'_id':dataKey}, {$set:{"meta.labels":newLabels }});      
-     //image.update({'labels': labelToChange }, {$set:{"meta":{"labels.$":newValue }}});      
-    }    
+    Images.update({'_id':dataKey}, {$set:{"meta.labels":newLabels }});
+     //image.update({'labels': labelToChange }, {$set:{"meta":{"labels.$":newValue }}});
+    }
   }
 })
 
 Template.deleteDocModal.events({
   'click #btnConfirmDelete': function(e){
     //e.preventDefault();
-    $('#deleteDocModal').modal('hide');      
+    $('#deleteDocModal').modal('hide');
   }
 })
 
 Template.labelSelector.rendered = function(){
   $("#labelSelector").select2({
     placeholder:"select some labels",
-    allowClear:"true"    
+    allowClear:"true"
   });
 }
 Template.labelSelector.events({
@@ -121,7 +159,7 @@ Template.labelSelector.events({
   }
 })
 Template.uploadedFiles.helpers({
-  uploadedFiles: function () {        
+  uploadedFiles: function () {
     return Images.find({}, {sort: { 'meta.date': -1}}) ;
   }
 });
@@ -145,14 +183,14 @@ Template.uploadForm.events({
   'change #fileInput': function (e, template) {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
-      // multiple files were selected      
-      
-      //console.log("url: " , e.currentTarget.files[0]); 
+      // multiple files were selected
+
+      //console.log("url: " , e.currentTarget.files[0]);
       var label = [];
       var text = [];
-      
-      ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();     
-                               
+
+      ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();
+
       var upload = Images.insert({
         file: e.currentTarget.files[0],
         meta: {
@@ -185,9 +223,9 @@ Template.uploadForm.events({
               var imageData = result.content;
               imageData = JSON.parse(imageData);
               var regions = imageData.regions;
-                            
+
               //var length = lines.length;
-              var sentences = [length];              
+              var sentences = [length];
               console.log("imagedata: ",imageData);
               console.log("length: " +  length);
               var counterRegions = 0;
@@ -195,28 +233,28 @@ Template.uploadForm.events({
               var text = "";
               $.each(regions, function(h, region){
                 var lines = imageData.regions[counterRegions].lines;
-                $.each(lines, function(i,line){                
+                $.each(lines, function(i,line){
                   sentences[counterLines] = "";
-                  $.each(line.words, function(j, word){                
-                      sentences[counterLines] += (word.text) + " ";                    
-                  })                
-                  counterLines++;                             
+                  $.each(line.words, function(j, word){
+                      sentences[counterLines] += (word.text) + " ";
+                  })
+                  counterLines++;
                 })
                 counterRegions++;
               });
-              
+
               console.log("Sentences: ", sentences);
               Meteor.call("addOcrText", fileObj._id, sentences, function(error, result){
                 if(error){
-                  console.log("error", error);                  
+                  console.log("error", error);
                 }
                 else{
                   console.log("updated image:", result);
                 }
               })
             }
-        
-          });            
+
+          });
 
          /* Meteor.call("ocrImage", function(error, result) {
             if(error){
@@ -225,7 +263,7 @@ Template.uploadForm.events({
             else{
               console.log("result:  ", result.content); //results.data should be a JSON object      console.log("error", error);
             }
-        
+
           }); */
         }
         template.currentUpload.set(false);
@@ -234,4 +272,4 @@ Template.uploadForm.events({
       upload.start();
     }
   }
-}); 
+});

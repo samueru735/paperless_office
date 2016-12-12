@@ -1,0 +1,29 @@
+<template name="homeSearch">
+
+{{> searchBox}}
+  <div id='search-result'>
+    <div id="search-meta">
+      {{#if isLoading}}
+        searching ...
+      {{else}}
+        not loading....
+      {{/if}}
+    </div>
+
+    {{#each getPackages}}
+    <div class="package">
+      <h4 class="name">
+        <a href="{{git}}" target="_blank">{{{name}}}</a>
+      </h4>
+      {{#each label in meta.labels}}
+        <span class="label label-default">{{label}}</span>
+      {{/each}}
+      <div class="description">
+        Description:
+        {{{labels}}}
+      </div>
+    </div>
+    {{/each}}
+</div>
+
+</template>
