@@ -20,7 +20,7 @@ Template.search.events({
                 
        
        
-        /* Meteor.call("ocrImage", "", function(error, result) {
+         Meteor.call("ocrImage", "", function(error, result) {
             if(error){
                console.log("error", error);
             }
@@ -43,7 +43,7 @@ Template.search.events({
               }); 
               console.log(sentences);
             }
-          }); */
+          }); 
       //return foundImages;
       Session.set("searchValue", $("#searchValue").val());  
       
@@ -96,7 +96,7 @@ Template.docShow.events({
       //var id = 
     var newLabels = image.meta.labels;
     newLabels[recordId] = newValue;
-    Images.update({'_id':dataKey}, {$set:{"meta":{"labels":newLabels }}});      
+    Images.update({'_id':dataKey}, {$set:{"meta.labels":newLabels }});      
      //image.update({'labels': labelToChange }, {$set:{"meta":{"labels.$":newValue }}});      
     }    
   }
@@ -149,6 +149,7 @@ Template.uploadForm.events({
       
       //console.log("url: " , e.currentTarget.files[0]); 
       var label = [];
+      var text = [];
       
       ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();     
                                
@@ -156,7 +157,8 @@ Template.uploadForm.events({
         file: e.currentTarget.files[0],
         meta: {
           labels: label,
-          date: new Date()
+          date: new Date(),
+          text: text
         },
         streams: 'dynamic',
         chunkSize: 'dynamic'
@@ -182,21 +184,28 @@ Template.uploadForm.events({
             else{
               var imageData = result.content;
               imageData = JSON.parse(imageData);
-              var lines = imageData.regions[0].lines;              
-              var length = lines.length;
+              var regions = imageData.regions;
+                            
+              //var length = lines.length;
               var sentences = [length];              
-              console.log(imageData);
+              console.log("imagedata: ",imageData);
               console.log("length: " +  length);
-              var counter = 0;
+              var counterRegions = 0;
+              var counterLines = 0;
               var text = "";
-              $.each(lines, function(i,line){                
-                sentences[counter] = "";
-                $.each(line.words, function(j, word){                
-                    sentences[counter] += (word.text) + " ";                    
-                })                
-                counter++;                             
-              }); 
-              console.log(sentences);
+              $.each(regions, function(h, region){
+                var lines = imageData.regions[counterRegions].lines;
+                $.each(lines, function(i,line){                
+                  sentences[counterLines] = "";
+                  $.each(line.words, function(j, word){                
+                      sentences[counterLines] += (word.text) + " ";                    
+                  })                
+                  counterLines++;                             
+                })
+                counterRegions++;
+              });
+              
+              console.log("Sentences: ", sentences);
               Meteor.call("addOcrText", fileObj._id, sentences, function(error, result){
                 if(error){
                   console.log("error", error);                  
