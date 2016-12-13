@@ -1,8 +1,8 @@
 <template name="docShow">
 <h1>Details of doc</h1>
-	<h3>{{image.name}}</h3>
+	<h3>{{image.name}}</h3>	
 	<button class="btn-danger" id="btnDeleteDoc">Delete document 
-	<span id="id">{{image.id}}</span></button>
+	</button>
 	{{>deleteDocModal}}
 	
 	{{#each label in image.meta.labels}}
@@ -21,8 +21,11 @@
     	</h4>
     	 {{> EditableTextField dataKey=image._id dataValue=labelValue emptyText="add new label" }}
     </div>
+    {{#if isImage}}
 	<img class="detailImage" src="{{image.link}}" alt="{{image.name}}" width="500" />
-
+	{{else}}
+	<iframe src="http://docs.google.com/gview?url={{imageFile.link}}&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
+	{{/if}}
 	<div>
 		{{#each text in image.meta.text}}
 		<p>{{text}}</p>

@@ -105,7 +105,16 @@ Template.search.helpers({
       }
   }
 });
-
+Template.docShow.helpers({
+  isImage: function(){
+    var id = Session.get("sessionImage");
+    console.log("id: " + id);
+    var img = Images.findOne({'_id':id});
+    if(img.type === "image/jpeg" || img.type === "image/png"){
+      return true;
+    }
+  }
+});
 Template.docShow.events({
   'click #btnEdit': function(){
     console.log("editing");
