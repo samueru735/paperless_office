@@ -15,7 +15,7 @@ Template.homeSearch.helpers({
 		      transform: function(matchText, regExp) {
 		        return matchText.replace(regExp, "<b>$&</b>")
 		      },
-		      sort: {isoScore: -1}, 
+		      sort: {isoScore: -1},
           limit: 20
 		    });
 				return result;
@@ -229,47 +229,105 @@ Template.uploadForm.events({
           //console.log("encoded file: ",Base64.encodeBinary(fileObj.file));
           //var image = Images.findOne({'_id':fileObj._id});
           //console.log("fileobject: ", image);
-          Meteor.call("ocrImage", fileObj._id, function(error, result) {
-            if(error){
-               console.log("error", error);
-            }
-            else{
-              var imageData = result.content;
-              imageData = JSON.parse(imageData);
-              var regions = imageData.regions;
+          if(fileObj.type === "image/png" || fileObj.type === "image/jpeg"){
 
-              //var length = lines.length;
-              var sentences = [length];
-              console.log("imagedata: ",imageData);
-              console.log("length: " +  length);
-              var counterRegions = 0;
-              var counterLines = 0;
-              var text = "";
-              $.each(regions, function(h, region){
-                var lines = imageData.regions[counterRegions].lines;
-                $.each(lines, function(i,line){
-                  sentences[counterLines] = "";
-                  $.each(line.words, function(j, word){
-                      sentences[counterLines] += (word.text) + " ";
+            Meteor.call("ocrImage", fileObj._id, function(error, result) {
+              if(error){
+                 console.log("error", error);
+              }
+              else{
+                var imageData = result.content;
+                imageData = JSON.parse(imageData);
+                var regions = imageData.regions;
+
+                //var length = lines.length;
+                var sentences = [length];
+                console.log("imagedata: ",imageData);
+                console.log("length: " +  length);
+                var counterRegions = 0;
+                var counterLines = 0;
+                var text = "";
+                $.each(regions, function(h, region){
+                  var lines = imageData.regions[counterRegions].lines;
+                  $.each(lines, function(i,line){
+                    sentences[counterLines] = "";
+                    $.each(line.words, function(j, word){
+                        sentences[counterLines] += (word.text) + " ";
+                    })
+                    counterLines++;
                   })
-                  counterLines++;
+                  counterRegions++;
+                });
+
+                console.log("Sentences: ", sentences);
+                Meteor.call("addOcrText", fileObj._id, sentences, function(error, result){
+                  if(error){
+                    console.log("error", error);
+                  }
+                  else{
+                    console.log("updated image:", result);
+                  }
                 })
-                counterRegions++;
-              });
+              }
 
-              console.log("Sentences: ", sentences);
-              Meteor.call("addOcrText", fileObj._id, sentences, function(error, result){
-                if(error){
-                  console.log("error", error);
-                }
-                else{
-                  console.log("updated image:", result);
-                }
-              })
-            }
+            });
+          }
 
-          });
+          else if (fileObj.type === "application/pdf") {
+            console.log('uploaded PDF');
+            //OCR PDF
+            Meteor.call("ocrPDF", fileObj._id, function(error, result) {
+              if(error){
+                 console.log("error", error);
+              }
+              else{
+                console.log('resilt', result);
+                //console.log(JSON.parse(result.content));
+                var pdfReturn = result;
+                //imageReturn = JSON.parse(pdfReturn);
+                console.log('imageReturn',pdfReturn.ParsedResults[0]);
+                // var pdfTexts = pdfReturn.ParsedResults[0].TextOverlay.Lines;
+                // console.log('pdfTexts',pdfTexts);
+                // console.log('pdfTexts',pdfTexts.filter(function (el) {return el.WordText}));
+                // console.log('pdfTexts',JSON.stringify(pdfTexts));
+                //
+                // filteredText = [];
+                // var index = 0;
+                // console.log('filtering data');
+                // $.each(pdfTexts, function (x,Line) {
+                //   console.log('lines', Line);
+                //   //filteredText.push(Line.Words[0]);
+                //   $.each(Line, function (z, words) {
+                //     console.log('wordText',words);
+                //     $.each(words, function (y, word) {
+                //       console.log('wordText',word.WordText);
+                //       console.log('word',word.WordText);
+                //       //filteredText.push(words.WordText);
+                //       filteredText[index] += word.WordText;
+                //       index ++;
+                //     })
+                //   })
+                //});
+                var filteredText = [pdfReturn.ParsedResults[0].ParsedText];
+                filteredText[0]=pdfReturn.ParsedResults[0].ParsedText;
 
+                console.log('results: '+ filteredText);
+                Meteor.call("addOcrText", fileObj._id, filteredText, function(error, result){
+                  if(error){
+                    console.log("error", error);
+                  }
+                  else{
+                    console.log("updated PDF:", result);
+                  }
+                })
+              }
+
+            });
+
+          }
+          else {
+            alert("how the fuck did you get here??? Yer a wizard harry.");
+          }
          /* Meteor.call("ocrImage", function(error, result) {
             if(error){
                console.log("error", error);
