@@ -3,7 +3,7 @@ var options = {
   localSearch: true
 };
 
-var fields = ['name', 'meta.labels'];
+var fields = ['name', 'meta.labels', 'meta.text'];
 
 PackageSearch = new SearchSource('Images', fields, options);
 
@@ -15,7 +15,8 @@ Template.homeSearch.helpers({
 		      transform: function(matchText, regExp) {
 		        return matchText.replace(regExp, "<b>$&</b>")
 		      },
-		      sort: {isoScore: -1}
+		      sort: {isoScore: -1}, 
+          limit: 20
 		    });
 				return result;
   },
@@ -33,6 +34,10 @@ Template.searchBox.events({
   }, 200)
 });
 
+// Template.searchBox.helpers({
+//     document.getElementById("search-box").focus();
+
+// });
 
 
 
@@ -58,7 +63,7 @@ Template.search.events({
 
 
 
-         Meteor.call("ocrImage", "", function(error, result) {
+       /*  Meteor.call("ocrImage", "", function(error, result) {
             if(error){
                console.log("error", error);
             }
@@ -81,7 +86,7 @@ Template.search.events({
               });
               console.log(sentences);
             }
-          });
+          }); */
       //return foundImages;
       Session.set("searchValue", $("#searchValue").val());
 

@@ -15,7 +15,7 @@ SearchSource.defineSource('Images', function(searchText, options) {
     var id = this.userId;
     var selector = {$and :[
                     {'userId': id},
-                    {$or: [ {'name': regExp},{'meta.labels': regExp}]}
+                    {$or: [ {'name': regExp},{'meta.labels': regExp},{'meta.text': regExp}]}
                   ]};
   //  selector.push({'userId':Meteor.userId()});
     return Images.find(selector, options).fetch();

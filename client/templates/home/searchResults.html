@@ -13,13 +13,17 @@
     {{#each getPackages}}
     <div class="package">
       <h4 class="name">
-        <a href="{{git}}" target="_blank">{{{name}}}</a>
+        <a href="{{pathFor 'docShow'}}?id={{_id}}">{{{name}}}</a>
       </h4>
+      <p>Labels: {{{meta.labels}}}</p>
       {{#each label in meta.labels}}
         <span class="label label-default">{{label}}</span>
       {{/each}}
       <div class="description">
         Description:
+        {{#each text in meta.text}}
+        <span class="">{{text}}</span>
+        {{/each}}
         {{{labels}}}
       </div>
     </div>

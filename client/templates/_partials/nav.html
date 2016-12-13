@@ -18,8 +18,7 @@
           <li><a href="{{pathFor 'homeRegister'}}">Register</a></li>
           <li><a href="{{pathFor 'homeSearch'}}">Search</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a class="pull-left" href="{{pathFor 'homeLogin'}}">{{loginStatus}}Login(Bob)</a></li>
+        <ul class="nav navbar-nav navbar-right">          
           <li>
               {{#if isInRole 'Administrator'}}
                 <a href="{{pathFor 'homeAdmin'}}">Secret admin stuff</a>
