@@ -17,6 +17,7 @@ binary-heap@1.0.9
 blaze@2.1.9
 blaze-html-templates@1.0.4
 blaze-tools@1.0.10
+blueimp:javascript-load-image@1.13.1
 boilerplate-generator@1.0.9
 caching-compiler@1.1.7_1
 caching-html-compiler@1.0.7
@@ -112,6 +113,7 @@ templating@1.2.15
 templating-compiler@1.2.15
 templating-runtime@1.2.15
 templating-tools@1.0.5
+thinksoftware:image-resize-client@1.0.0
 tmeasday:paginated-subscription@0.2.4
 tracker@1.1.0
 twbs:bootstrap@3.3.6

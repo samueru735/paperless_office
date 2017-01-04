@@ -22,7 +22,7 @@ SearchSource.defineSource('Images', function(searchText, options) {
     console.log("fetch" + Images.find({"userId": Meteor.userId()}, options).fetch());
     console.log("my userid" + Meteor.userId());
   } else {
-    return Images.find({'userId': Meteor.userId()}, options).fetch();
+    //return Images.find({'userId': Meteor.userId()}, options).fetch();
   }
 
 });

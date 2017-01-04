@@ -200,23 +200,30 @@ Template.uploadForm.events({
       // multiple files were selected
 
       //console.log("url: " , e.currentTarget.files[0]);
+      var options = {
+        width: 400,
+        height: 400,
+        cropSquare: false
+      };
       var label = [];
       var text = [];
 
+
       ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();
 
-      var upload = Images.insert({
-        file: e.currentTarget.files[0],
-        meta: {
-          labels: label,
-          date: new Date(),
-          text: text
-        },
-        streams: 'dynamic',
-        chunkSize: 'dynamic'
-      }, false);
+      Resizer.resize(e.currentTarget.files[0], options, function(err, resizedFile){
+        var upload = Images.insert({
+          file: resizedFile,
+          meta: {
+            labels: label,
+            date: new Date(),
+            text: text
+          },
+          streams: 'dynamic',
+          chunkSize: 'dynamic'
+        }, false);
 
-      upload.on('start', function () {
+         upload.on('start', function () {
         template.currentUpload.set(this);
       });
 
@@ -342,6 +349,10 @@ Template.uploadForm.events({
       });
 
       upload.start();
-    }
+
+      });
+     
+
+         }
   }
 });
