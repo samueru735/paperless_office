@@ -201,8 +201,8 @@ Template.uploadForm.events({
 
       //console.log("url: " , e.currentTarget.files[0]);
       var options = {
-        width: 400,
-        height: 400,
+        width: 1000,
+        height: 1000,
         cropSquare: false
       };
       var label = [];
