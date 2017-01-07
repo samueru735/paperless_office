@@ -9,9 +9,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 if (Meteor.isClient) {
   Meteor.subscribe('docs');    
   Meteor.subscribe('files.images', Meteor.userId());  
-  Meteor.subscribe('labels');
-
-
+  Meteor.subscribe('labels'); 
 
 Tracker.autorun(function(){
   if(Meteor.userId()){  	

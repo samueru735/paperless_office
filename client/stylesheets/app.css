@@ -4,6 +4,11 @@ body{
 }
 
 .imageFile{
+  height: 300px; 
+  width: 200px;
+}
+.imageSelection{
+  margin: .5em;
 }
 .hidden{
   visibility: hidden;
