@@ -219,7 +219,7 @@ Template.uploadForm.events({
 
       ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();
 
-       startUpload = function(){
+      startUpload = function(){
       upload.on('start', function () {
             template.currentUpload.set(this);
           });
@@ -312,8 +312,12 @@ Template.uploadForm.events({
                 //     })
                 //   })
                 //});
-                var filteredText = [pdfReturn.ParsedResults[0].ParsedText];
-                filteredText[0]=pdfReturn.ParsedResults[0].ParsedText;
+                //var filteredText = [pdfReturn.ParsedResults[0].ParsedText];
+                var filteredText = [];
+                for (var i = 0; i < pdfReturn.ParsedResults.length; i++) {
+                  filteredText[i] = pdfReturn.ParsedResults[i].ParsedText;
+                }
+                //filteredText[0]=pdfReturn.ParsedResults[0].ParsedText;
 
                 console.log('results: '+ filteredText);
                 Meteor.call("addOcrText", fileObj._id, filteredText, function(error, result){
@@ -378,7 +382,5 @@ Template.uploadForm.events({
        }, false);
         startUpload();
       }
-
-
   }
 });
