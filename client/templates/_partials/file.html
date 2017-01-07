@@ -1,7 +1,12 @@
 <template name='file'>
-{{#each imageFile in imageFiles.each}}
-
-  <a href="{{pathFor 'docShow'}}?id={{imageFile._id}}"><img class="imageFile" src="{{imageFile.link}}" alt="{{imageFile.name}}" height="300" width="200" />
+{{#each imageFile in imageFiles.each}}  
+  <a href="{{pathFor 'docShow'}}?id={{imageFile._id}}" class="linkwrap">
+  {{#if isImage imageFile._id}}
+	<img class="imageFile" src="{{imageFile.link}}" alt="{{imageFile.name}}" height="300" width="200" />
+  {{else}}
+  	<div class="blocker"></div>
+	<iframe src="http://docs.google.com/gview?url={{imageFile.link}}&embedded=true" style="width:200px; height:300px;" frameborder="0"></iframe>
+  {{/if}}
   </a>
   
   {{/each}}

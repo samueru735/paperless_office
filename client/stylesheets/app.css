@@ -4,12 +4,29 @@ body{
 }
 
 .imageFile{
+  float: left;
   height: 300px; 
   width: 200px;
 }
 .imageSelection{
   margin: .5em;
+  float: left;
 }
+
+.linkwrap { 
+  position:relative; 
+  display:inline-block; 
+}
+
+.blocker { position:absolute; 
+  height:100%; 
+  width:100%; 
+  z-index:1; 
+  background:rgba(255,255,255,0.01);  }
+.linkwrap iframe { 
+  z-index: 2; 
+}
+
 .hidden{
   visibility: hidden;
 }
@@ -23,9 +40,6 @@ body{
   margin: 2em;
 }
 
-iframe{
-  display: block;
-}
 
 // navbar
 #navbar {float: right;}

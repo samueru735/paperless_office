@@ -1,41 +1,13 @@
-Template.file.rendered = function() {
-    $('#carousel').slick({
-      dots: true,
-      infinite: false,
-      speed: 300,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-      ]
-    });    
-  }
 
 Template.file.helpers({
   imageFiles: function () {
     return Images.find({}, {sort: { 'meta.date': -1}});
+  },
+  isImage: function(id){    
+    img = Images.findOne({'_id':id});
+    if(img.type === "image/jpeg" || img.type === "image/png"){
+      return true;
+    }
   }
 });
 
@@ -247,36 +219,7 @@ Template.uploadForm.events({
 
       ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();
 
-      if(e.currentTarget.files[0].type === "image/png" || e.currentTarget.files[0].type === "image/jpeg"){
-        Resizer.resize(e.currentTarget.files[0], options, function(err, resizedFile){
-          upload = Images.insert({
-          file: resizedFile,
-          meta: {
-            labels: label,
-            date: new Date(),
-            text: text
-          },
-          streams: 'dynamic',
-          chunkSize: 'dynamic'
-        }, false);
-        startUpload();
-        });
-      }
-      else{
-        upload = Images.insert({
-         file: e.currentTarget.files[0],
-         meta: {
-           labels: label,
-           date: new Date(),
-           text: text
-         },
-         streams: 'dynamic',
-         chunkSize: 'dynamic'
-       }, false);
-        startUpload();
-      }
-
-      startUpload = function(){
+       startUpload = function(){
       upload.on('start', function () {
             template.currentUpload.set(this);
           });
@@ -402,11 +345,40 @@ Template.uploadForm.events({
         template.currentUpload.set(false);
       });
 
-      upload.start();     
-
-
+      upload.start();           
 
       }
-                  }
+    }
+
+      if(e.currentTarget.files[0].type === "image/png" || e.currentTarget.files[0].type === "image/jpeg"){
+        Resizer.resize(e.currentTarget.files[0], options, function(err, resizedFile){
+          upload = Images.insert({
+          file: resizedFile,
+          meta: {
+            labels: label,
+            date: new Date(),
+            text: text
+          },
+          streams: 'dynamic',
+          chunkSize: 'dynamic'
+        }, false);
+        startUpload();
+        });
+      }
+      else{
+        upload = Images.insert({
+         file: e.currentTarget.files[0],
+         meta: {
+           labels: label,
+           date: new Date(),
+           text: text
+         },
+         streams: 'dynamic',
+         chunkSize: 'dynamic'
+       }, false);
+        startUpload();
+      }
+
+
   }
 });
