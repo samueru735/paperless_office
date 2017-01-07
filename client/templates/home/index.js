@@ -30,7 +30,7 @@ Template.file.rendered = function() {
           }
         }
       ]
-    });    
+    });
   }
 
 Template.file.helpers({
@@ -235,47 +235,6 @@ Template.uploadForm.events({
       // We upload only one file, in case
       // multiple files were selected
 
-      //console.log("url: " , e.currentTarget.files[0]);
-      var options = {
-        width: 1000,
-        height: 1000,
-        cropSquare: false
-      };
-      var label = [];
-      var text = [];
-      var upload;
-
-      ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();
-
-      if(e.currentTarget.files[0].type === "image/png" || e.currentTarget.files[0].type === "image/jpeg"){
-        Resizer.resize(e.currentTarget.files[0], options, function(err, resizedFile){
-          upload = Images.insert({
-          file: resizedFile,
-          meta: {
-            labels: label,
-            date: new Date(),
-            text: text
-          },
-          streams: 'dynamic',
-          chunkSize: 'dynamic'
-        }, false);
-        startUpload();
-        });
-      }
-      else{
-        upload = Images.insert({
-         file: e.currentTarget.files[0],
-         meta: {
-           labels: label,
-           date: new Date(),
-           text: text
-         },
-         streams: 'dynamic',
-         chunkSize: 'dynamic'
-       }, false);
-        startUpload();
-      }
-
       startUpload = function(){
       upload.on('start', function () {
             template.currentUpload.set(this);
@@ -369,8 +328,12 @@ Template.uploadForm.events({
                 //     })
                 //   })
                 //});
-                var filteredText = [pdfReturn.ParsedResults[0].ParsedText];
-                filteredText[0]=pdfReturn.ParsedResults[0].ParsedText;
+                //var filteredText = [pdfReturn.ParsedResults[0].ParsedText];
+                var filteredText = [];
+                for (var i = 0; i < pdfReturn.ParsedResults.length; i++) {
+                  filteredText[i] = pdfReturn.ParsedResults[i].ParsedText;
+                }
+                //filteredText[0]=pdfReturn.ParsedResults[0].ParsedText;
 
                 console.log('results: '+ filteredText);
                 Meteor.call("addOcrText", fileObj._id, filteredText, function(error, result){
@@ -402,11 +365,54 @@ Template.uploadForm.events({
         template.currentUpload.set(false);
       });
 
-      upload.start();     
+      upload.start();
 
 
 
       }
+
+      //console.log("url: " , e.currentTarget.files[0]);
+      var options = {
+        width: 1000,
+        height: 1000,
+        cropSquare: false
+      };
+      var label = [];
+      var text = [];
+      var upload;
+
+      ($("#labelSelector").val() === null) ? label = [] : label = $("#labelSelector").val();
+
+      if(e.currentTarget.files[0].type === "image/png" || e.currentTarget.files[0].type === "image/jpeg"){
+        Resizer.resize(e.currentTarget.files[0], options, function(err, resizedFile){
+          upload = Images.insert({
+          file: resizedFile,
+          meta: {
+            labels: label,
+            date: new Date(),
+            text: text
+          },
+          streams: 'dynamic',
+          chunkSize: 'dynamic'
+        }, false);
+        startUpload();
+        });
+      }
+      else{
+        upload = Images.insert({
+         file: e.currentTarget.files[0],
+         meta: {
+           labels: label,
+           date: new Date(),
+           text: text
+         },
+         streams: 'dynamic',
+         chunkSize: 'dynamic'
+       }, false);
+        startUpload();
+      }
+
+
                   }
   }
 });
