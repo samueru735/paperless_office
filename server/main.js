@@ -15,14 +15,21 @@ SearchSource.defineSource('Images', function(searchText, options) {
     console.log(searchText);
     var res = searchText.split(" ");
     var hash = []; //the label searches with '#'
+    var at = [];
     var search = searchText; //string to be searched overall without label keys '#'
     for (i=0;i<res.length;i++){
-    	if(res[i].charAt(0) === "#"){
+    	 if(res[i].charAt(0) === "#"){
         	  //hash += " " + res[i].replace("#","").trim();
         	  hash.push(res[i].replace("#","").trim());
             console.log("hash:",hash);
             var rip = search;
             search = rip.replace(res[i],"");
+        }
+        else if (res[i].charAt(0) === "@"){
+              at.push(res[i].replace("@","").trim());
+              console.log("at:",hash);
+              var rip = search;
+              search = rip.replace(res[i],"");
         }
     }
 
@@ -30,6 +37,8 @@ SearchSource.defineSource('Images', function(searchText, options) {
     var ida = Meteor.userId();
     var id = this.userId;
     var selectorHead = {};
+    var selectorDescription = {};
+
 
     //var selectorHead = (hash === "")? "{'userId': id},{'meta.labels': hash}" :
 
@@ -37,6 +46,12 @@ SearchSource.defineSource('Images', function(searchText, options) {
       selectorHead = {'meta.labels':{$all:hash}};
       console.log("hashed??");
       console.log("selectorHead:", selectorHead);
+    }
+    else if (at.length > 0) {
+      for(i=0;i < at.length;i++){
+        at[i] = buildRegExp(at[i]);
+      }
+      selectorDescription = {'meta.text':{$all:at}}
     }
     // else{
     //   //var hashregExp = buildRegExp(hash);
@@ -48,8 +63,8 @@ SearchSource.defineSource('Images', function(searchText, options) {
     // }
     // //{$and :[{'meta.labels': 'hash'},{$or: [ {'name': regExp},{'meta.text': regExp}]}]}
     var selector = {$and :[{'userId': id},
-                          selectorHead,
-                          {$or: [ {'name': regExp},{'meta.text': regExp}]}
+                          selectorHead,selectorDescription,
+                          {$or: [ {'name': regExp}]}
                   ]};
     console.log("selector:", selector);
   //  selector.push({'userId':Meteor.userId()});
