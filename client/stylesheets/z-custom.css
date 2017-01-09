@@ -29,3 +29,14 @@ html,body{
 }
 
 a { color: inherit; }
+.hidden {
+     display:none;
+}
+
+.editableform{
+  margin: 0 auto;
+}
+.label{
+  margin-top:.5em;
+  margin-bottom: :.5em;
+}

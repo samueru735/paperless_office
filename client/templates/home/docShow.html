@@ -1,36 +1,47 @@
 <template name="docShow">
-<h1>Details of doc</h1>
-	<h3>{{image.name}}</h3>	
-	<button class="btn-danger" id="btnDeleteDoc">Delete document 
-	</button>
+<div class="jumbotron container">
+	<h2>{{image.name}}</h2>
+	<button class="btn btn-danger" id="btnDeleteDoc">Delete document</button>
+	<button class="btn" onclick="$('.edit').toggleClass('hidden');$('.btnRemove').toggleClass('hidden');" >Edit Labels</button>
 	{{>deleteDocModal}}
-	
+<ul class="list-inline">
 	{{#each label in image.meta.labels}}
-	<div class="record-container" data-record-id="{{@index}}">
-		<h4><span class="label label-default" label-content="{{label}}">{{label}} <a href="{{pathFor 'docShow'}}?id={{image._id}}&action=remove&labelIndex={{@index}}"><button id="btnRemove" ><i class="glyphicon glyphicon-remove"></i></button></a></span></h4>
-	  {{> EditableTextField dataKey=image._id dataValue=labelValue emptyText="edit" }}
-	</div>
-    <!--	<h4><span class="label label-default">{{label}} 
+	<li class="label label-default">
+		<div class="record-container" data-record-id="{{@index}}">
+			<h5>
+				<span  label-content="{{label}}">{{label}} <a href="{{pathFor 'docShow'}}?id={{image._id}}&action=remove&labelIndex={{@index}}"><button id="btnRemove" class="btnRemove hidden" ><i class="glyphicon glyphicon-remove"></i></button></a>
+				</span>
+				<div class=" btn hidden edit">
+					{{> EditableTextField dataKey=image._id dataValue=labelValue emptyText="edit" }}
+				</div>
+			</h5>
+
+		</div>
+    <!--	<h4><span class="label label-default">{{label}}
     	<button id="btnEdit"><i class="glyphicon glyphicon-edit"></i></button>
     	<button id="btnRemove"><i class="glyphicon glyphicon-remove"></i></button></span></h4> -->
-
-    {{/each}}
-    <div class="record-container" data-record-id="{{image.meta.labels.length}}">
+	</li>
+  {{/each}}
+</ul>
+<div class="row">
+  <div class="record-container " data-record-id="{{image.meta.labels.length}}">
 		<h4><span class="label label-default hidden" label-content="{{label}}">
     		</span>
     	</h4>
     	 {{> EditableTextField dataKey=image._id dataValue=labelValue emptyText="add new label" }}
     </div>
     {{#if isImage}}
-	<img class="detailImage" src="{{image.link}}" alt="{{image.name}}" width="500" />
+	<img class="detailImage col-mg-12" src="{{image.link}}" alt="{{image.name}}" width="500" />
 	{{else}}
 	<iframe src="http://docs.google.com/gview?url={{image.link}}&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
 	{{/if}}
 	<div>
+		<h4>Description</h4>
 		{{#each text in image.meta.text}}
 		<p>{{text}}</p>
 		{{/each}}
 	</div>
 
+	</div>
+</div>
 </template>
-
