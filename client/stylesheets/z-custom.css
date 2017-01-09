@@ -1,0 +1,31 @@
+html,body{
+  /*background-color: #272727 ;*/
+}
+
+.jumbotron{
+  background-color: #eee5e9;
+  color: #272727;
+}
+
+.container{
+  /*color: #eee5e9;*/
+}
+
+.navbar-inverted{
+/*background-color: #8e191d;*/
+}
+
+.uploadedDiv{
+  height:200px;
+  overflow:hidden;
+  overflow-y:scroll;
+  list-style:none;
+  color: #272727;
+   border-radius:.6em;
+}
+.uploadedList{
+  list-style:none;
+  /*background-color: #eee5e9;*/
+}
+
+a { color: inherit; }
