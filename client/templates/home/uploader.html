@@ -1,18 +1,11 @@
-<template name="homeSearch">
-
-{{> searchBox}}
-  <div id='search-result'>
-    <div id="search-meta">
-      {{#if isLoading}}
-        searching ...
-      {{else}}
-        <!--To search labels put a "#" before the text. e.g. #label -->
-      {{/if}}
-    </div>
-
-    <div class="panel panel-default hidden" id="searchResultsPanel">
+<template name="homeUploader">
+<div class="col-md-4 col-md" >
+<div class="filler">
+	<button id="uploadButton" class="label-primary glyphicon glyphicon-cloud-upload"></button>
+</div>
+	<div class="panel panel-default hidden" id="uploaderResultsPanel">
       <div class="panel-heading">
-        <h3 class="panel-title">Search results</h3>
+        <h3 class="panel-title">Upload image/pdf</h3>
       </div>
       <div class="panel-body">      
         <div class="list-group">
@@ -37,5 +30,7 @@
     </div>    
   </div>
 </div>
+
+	
 
 </template>

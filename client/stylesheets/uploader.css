@@ -1,0 +1,16 @@
+
+#uploadButton {
+  clear: both;
+  float: left;
+  position: relative;
+
+  top: 26px;
+  display: inline-block;
+  width: 52px;
+  height: 52px;
+  line-height: 44px;
+  text-align: center;
+  color: #fff;
+  font-size: 34px;
+  border-radius: 4px 4px 4px 4px;
+}

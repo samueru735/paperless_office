@@ -32,10 +32,10 @@ Template.homeSearch.helpers({
           limit: 20
 		    });
         if (result.length !== 0){          
-          $(".panel-default").removeClass("hidden");
+          $("#searchResultsPanel").removeClass("hidden");
         }
         else {          
-          $(".panel-default").addClass("hidden");
+          $("#searchResultsPanel").addClass("hidden");
         }
 				return result;
   },
@@ -58,6 +58,12 @@ Template.searchBox.events({
 
   }, 200)
 });
+
+Template.homeUploader.events({
+  "click #uploadButton": function(){
+     $("#uploaderResultsPanel").toggleClass("hidden");
+  }
+})
 
 Template.homeIndex.helpers({
 	featured: function(){
