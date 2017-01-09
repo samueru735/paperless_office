@@ -6,28 +6,36 @@
       {{#if isLoading}}
         searching ...
       {{else}}
-        To search labels put a "#" before the text. e.g. #label
+        <!--To search labels put a "#" before the text. e.g. #label -->
       {{/if}}
     </div>
 
-    {{#each getPackages}}
-    <div class="package">
-      <h4 class="name">
-        <a href="{{pathFor 'docShow'}}?id={{_id}}">{{{name}}}</a>
-      </h4>
-      <p>Labels: {{{meta.labels}}}</p>
-      {{#each label in meta.labels}}
-        <span class="label label-default">{{label}}</span>
-      {{/each}}
-      <div class="description">
-        Description:
-        {{#each text in meta.text}}
-        <span class="">{{text}}</span>
-        {{/each}}
-        {{{labels}}}
+    <div class="panel panel-default hidden">
+      <div class="panel-heading">
+        <h3 class="panel-title">Search results</h3>
       </div>
-    </div>
-    {{/each}}
+      <div class="panel-body">      
+        <div class="list-group">
+          {{#each getPackages}}
+          <a href="{{pathFor 'docShow'}}?id={{_id}}" class="list-group-item">
+            <h4 class="list-group-item-heading">{{{name}}}</h4>
+            <p class="list-group-item-text">              
+                {{#each label in meta.labels}}
+                  <span class="label label-default">{{label}}</span>
+                {{/each}}
+                <div class="description">
+                  Description:
+                  {{#each text in meta.text}}
+                  <span class="">{{text}}</span>
+                  {{/each}}
+                  {{{labels}}}
+                </div>
+            </p>
+          </a>
+          {{/each}}
+      </div>
+    </div>    
+  </div>
 </div>
 
 </template>

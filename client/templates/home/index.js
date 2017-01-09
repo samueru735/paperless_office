@@ -31,6 +31,12 @@ Template.homeSearch.helpers({
 		      sort: {isoScore: -1},
           limit: 20
 		    });
+        if (result.length !== 0){          
+          $(".panel-default").removeClass("hidden");
+        }
+        else {          
+          $(".panel-default").addClass("hidden");
+        }
 				return result;
   },
 

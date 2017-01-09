@@ -1,6 +1,10 @@
 body{
-	padding-top: 50px;
+	padding-top: 20px;
   margin: 1em;
+}
+
+.form-group{
+  margin-top: 2em;
 }
 
 .imageFile{

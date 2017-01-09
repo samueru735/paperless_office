@@ -5,26 +5,28 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="jumbotron">
+        <div class="jumbotron">          
           <h1>{{message}}</h1>
-          <p class="lead">
-            Digitize now
-          </p>
-        </div>
-      </div>
-      <hr/>
-    </div>    
-    {{>homeSearch}}
-    {{>uploadForm}}
-    {{>labelSelector}}
-    {{#if currentUser}}
-    {{>uploadedFiles}}
-    <div class="imageSelection">
-      {{>file}}  
-    </div>    
-    {{/if}}
+          <p class="lead">Digitize now</p>   
 
+        </div>
+        {{>homeSearch}}  
+      </div>
+
+    </div>                  
+    
+          
+      {{>labelSelector}}
+      {{>uploadForm}}
+      
+      {{#if currentUser}}
+      {{>uploadedFiles}}
+      <div class="imageSelection">
+        {{>file}}  
+      </div>    
+      {{/if}}
   </div>
+  
   <div class="container marketing">
     <div class="row">
       {{#each featured}}
@@ -32,5 +34,4 @@
       {{/each}}
     </div>
   </div>
-
 </template>
