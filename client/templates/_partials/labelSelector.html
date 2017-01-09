@@ -1,11 +1,13 @@
 <template name='labelSelector'>
-<h3>Attach labels</h3>  
+<h3>Attach labels</h3>
 
+<div class="input-group">
+
+  <span class="input-group-addon"><i class="fa fa-tag fa" aria-hidden="true"></i></span>
   <select class="js-example-basic-multiple js-states form-control" id="labelSelector" multiple="multiple">
      {{#each label in labels}}
         <option>{{label.name}}</option>
      {{/each}}
   </select>
-  
-
-</template> 
+</div>
+</template>
