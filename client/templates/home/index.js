@@ -42,6 +42,12 @@ Template.homeSearch.helpers({
 
 	isLoading: function() {
     return PackageSearch.getStatus().loading;
+  },
+  textLimiter: function(index){
+    var limiter = 10;
+    if(index < limiter){    
+      return true;
+    }
   }
 });
 Template.searchBox.events({

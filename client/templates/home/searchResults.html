@@ -25,9 +25,13 @@
                 {{/each}}
                 <div class="description">
                   Description:
-                  {{#each text in meta.text}}
-                  <span class="">{{text}}</span>
-                  {{/each}}
+                  {{#let rowIndex=@index}}
+                    {{#each text in meta.text}}
+                      {{#if textLimiter @index}}
+                        <span class="">{{text}}</span>
+                      {{/if}}
+                    {{/each}}
+                 {{/let}}
                   {{{labels}}}
                 </div>
             </p>
