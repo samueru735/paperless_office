@@ -8,23 +8,7 @@
         <h3 class="panel-title">Upload image/pdf</h3>
       </div>
       <div class="panel-body">      
-        <div class="list-group">
-          {{#each getPackages}}
-          <a href="{{pathFor 'docShow'}}?id={{_id}}" class="list-group-item">
-            <h4 class="list-group-item-heading">{{{name}}}</h4>
-            <p class="list-group-item-text">              
-                {{#each label in meta.labels}}
-                  <span class="label label-default">{{label}}</span>
-                {{/each}}
-                <div class="description">
-                  Description:
-                  
-                  {{{labels}}}
-                </div>
-            </p>
-          </a>
-          {{/each}}
-      </div>
+        
     </div>    
   </div>
 </div>

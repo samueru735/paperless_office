@@ -44,8 +44,10 @@ Template.homeSearch.helpers({
     return PackageSearch.getStatus().loading;
   },
   textLimiter: function(index){
-    var limiter = 10;
-    if(index < limiter){    
+    var limiter = 5;
+    //console.log("rowIndex: " + index)      ;
+    if(index < limiter){
+
       return true;
     }
   }
