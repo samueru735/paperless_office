@@ -1,6 +1,17 @@
 <template name="searchBox">
-  <div class="form-group">
-  	<label class="control-label" for="search-box">Search images</label>
-  	<input class="form-control input-lg" type="text" id="search-box" placeholder=" #label(optional) text to search" />
-  </div>
+	<div class="row">
+        <div class="col-md-4 col-md">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search-box" placeholder=" #label(optional) text to search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+  	<!--<div class="form-group">
+  		<label class="control-label" for="search-box">Search images</label>
+  		<input class="form-control input-lg" type="text" id="search-box" placeholder=" #label(optional) text to search" />
+  	</div> -->
 </template>
