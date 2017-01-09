@@ -3,7 +3,9 @@ body{
 	padding-top: 50px;
   margin: 1em;
 }
-
+.list-group {
+  overflow: auto;
+}
 .form-group{
   margin-top: 2em;
 }

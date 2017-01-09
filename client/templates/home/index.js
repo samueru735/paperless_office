@@ -47,18 +47,17 @@ Template.homeSearch.helpers({
 Template.searchBox.events({
   "keyup #search-box": _.throttle(function(e) {
     var text = $(e.target).val().trim();
+    if(text.length !== 0){      
+      $('.search-form .form-group').addClass("hover");
+    }
+    else{      
+      $('.search-form .form-group').removeClass("hover"); 
+    } 
     //(Session.get("newId")===(Session.get("oldId"))) ? PackageSearch.search(text) : break ;
     if (Session.get("newId")===(Session.get("oldId")))  PackageSearch.search(text);
 
   }, 200)
 });
-
-// Template.searchBox.helpers({
-//     document.getElementById("search-box").focus();
-
-// });
-
-
 
 Template.homeIndex.helpers({
 	featured: function(){
