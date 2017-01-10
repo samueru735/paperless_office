@@ -11,7 +11,7 @@ Template.file.helpers({
   }
 });
 
-var options = {
+var options = { // resizer options
   keepHistory: 1000 * 60 * 5,
   localSearch: true
 };
@@ -96,36 +96,8 @@ Template.search.events({
       var foundImages = Images.find(
         {"meta.labels":searchValue});
 
-
-
-       /*  Meteor.call("ocrImage", "", function(error, result) {
-            if(error){
-               console.log("error", error);
-            }
-            else{
-              var imageData = result.content;
-              imageData = JSON.parse(imageData);
-              var lines = imageData.regions[0].lines;
-              var length = lines.length;
-              var sentences = [length];
-              console.log(imageData);
-              console.log("length: " +  length);
-              var counter = 0;
-              var text = "";
-              $.each(lines, function(i,line){
-                sentences[counter] = "";
-                $.each(line.words, function(j, word){
-                    sentences[counter] += (word.text) + " ";
-                })
-                counter++;
-              });
-              console.log(sentences);
-            }
-          }); */
-      //return foundImages;
       Session.set("searchValue", $("#searchValue").val());
 
-      //Session.set("foundImages", foundImages);
     }
   });
 Template.search.helpers({
@@ -133,8 +105,7 @@ Template.search.helpers({
     Meteor.subscribe("search", Session.get("searchValue"));
     if (Session.get("searchValue")) {
       var searchValue = Session.get("searchValue");
-      console.log("got session value" + searchValue);
-     // $(".searchResults").css('visibility', 'visible');
+      console.log("got session value" + searchValue);     
       return Images.find({"userId": Session.get("newId"),
         "meta.labels":searchValue});
       }
@@ -174,10 +145,10 @@ Template.docShow.events({
     var image = Images.findOne({'_id':dataKey});
     var labelToChange = image.meta.labels[recordId];
    //var labelToChange = label; //$(e.target).closest(".label label-default").attr("label-content");
-    console.log("dataKey: " + dataKey);
-    console.log("recordId: " + recordId);
-    console.log("new value:" + newValue );
-    console.log("Label to change:" + labelToChange );
+    //console.log("dataKey: " + dataKey);
+    //console.log("recordId: " + recordId);
+    //console.log("new value:" + newValue );
+    //console.log("Label to change:" + labelToChange );
     if(dataKey && recordId){
       update[dataKey] = newValue;
       //var id =
@@ -308,34 +279,10 @@ Template.uploadForm.events({
                  console.log("error", error);
               }
               else{
-                console.log('resilt', result);
-                //console.log(JSON.parse(result.content));
-                var pdfReturn = result;
-                //imageReturn = JSON.parse(pdfReturn);
+                console.log('result', result);                
+                var pdfReturn = result;                
                 console.log('imageReturn',pdfReturn.ParsedResults[0]);
-                // var pdfTexts = pdfReturn.ParsedResults[0].TextOverlay.Lines;
-                // console.log('pdfTexts',pdfTexts);
-                // console.log('pdfTexts',pdfTexts.filter(function (el) {return el.WordText}));
-                // console.log('pdfTexts',JSON.stringify(pdfTexts));
-                //
-                // filteredText = [];
-                // var index = 0;
-                // console.log('filtering data');
-                // $.each(pdfTexts, function (x,Line) {
-                //   console.log('lines', Line);
-                //   //filteredText.push(Line.Words[0]);
-                //   $.each(Line, function (z, words) {
-                //     console.log('wordText',words);
-                //     $.each(words, function (y, word) {
-                //       console.log('wordText',word.WordText);
-                //       console.log('word',word.WordText);
-                //       //filteredText.push(words.WordText);
-                //       filteredText[index] += word.WordText;
-                //       index ++;
-                //     })
-                //   })
-                //});
-                //var filteredText = [pdfReturn.ParsedResults[0].ParsedText];
+
                 var filteredText = [];
                 for (var i = 0; i < pdfReturn.ParsedResults.length; i++) {
                   filteredText[i] = pdfReturn.ParsedResults[i].ParsedText;
@@ -358,16 +305,7 @@ Template.uploadForm.events({
           }
           else {
             alert("how the fuck did you get here??? Yer a wizard harry.");
-          }
-         /* Meteor.call("ocrImage", function(error, result) {
-            if(error){
-               console.log("error", error);
-            }
-            else{
-              console.log("result:  ", result.content); //results.data should be a JSON object      console.log("error", error);
-            }
-
-          }); */
+          }         
         }
         template.currentUpload.set(false);
       });
