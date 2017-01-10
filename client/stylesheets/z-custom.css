@@ -5,6 +5,7 @@ html,body{
 .jumbotron{
   background-color: #eee5e9;
   color: #272727;
+  overflow: auto;
 }
 
 .container{
@@ -16,7 +17,7 @@ html,body{
 }
 
 .uploadedDiv{
-  height:200px;
+  height:400px;
   overflow:hidden;
   overflow-y:scroll;
   list-style:none;

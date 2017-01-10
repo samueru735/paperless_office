@@ -38,11 +38,6 @@
   border-radius: 4px 4px 4px 4px;
   background: #fff;
 }
-.wide{
-  width: 500px;
-  border-radius: 4px 4px 4px 4px;
-  background: #fff;
-}
 .search-form .form-group span.form-control-feedback {
   position: absolute;
   top: 7px;
@@ -73,4 +68,9 @@
 #search-box:-ms-input-placeholder {  
    color: #8e191d;     
 }
-
+#searchResultsPanel{
+  /*overflow: auto;*/
+}
+.collapsed {
+  visibility: collapse;
+}

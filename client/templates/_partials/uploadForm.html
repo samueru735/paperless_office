@@ -3,6 +3,15 @@
     Uploading <b>{{file.name}}</b>:
     <span id="progress">{{progress.get}}%</span>
   {{else}}
+<div class="image-upload">
+    <label for="fileInput">
+    	<span class="glyphicon glyphicon-file"></span>
+        <span class="glyphicon glyphicon-picture"></span>
+        <span class="glyphicon glyphicon-camera"></span>
+    </label>
+
     <input id="fileInput" type="file"/>
+</div>
+    
   {{/with}}
 </template>

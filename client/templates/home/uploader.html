@@ -1,17 +1,24 @@
 <template name="homeUploader">
-<div class="col-md-4 col-md" >
-<div class="filler">
+<div class="col-md-12 col-md" id="uploader">
+
 	<button id="uploadButton" class="label-primary glyphicon glyphicon-cloud-upload"></button>
+
 </div>
-	<div class="panel panel-default hidden" id="uploaderResultsPanel">
+
+<div class="panel panel-default hidden" id="uploaderResultsPanel">
       <div class="panel-heading">
         <h3 class="panel-title">Upload image/pdf</h3>
       </div>
+
       <div class="panel-body">      
-        
+		{{>labelSelector}}	
+
+        {{>uploadForm}}
     </div>    
-  </div>
-</div>
+  </div>   
+
+ 
+
 
 	
 

@@ -70,6 +70,9 @@ Template.searchBox.events({
 Template.homeUploader.events({
   "click #uploadButton": function(){
      $("#uploaderResultsPanel").toggleClass("hidden");
+     $("#searchBox input").val("");
+     $('.search-form .form-group').removeClass("hover");
+     //$("#searchResultsPanel").addClass("hidden");
   }
 })
 
@@ -195,13 +198,14 @@ Template.deleteDocModal.events({
 
 Template.labelSelector.rendered = function(){
   $("#labelSelector").select2({
-    placeholder:"select some labels",
+    placeholder:"add labels",
+    width:"500px",
     allowClear:"true"
   });
 }
 Template.labelSelector.events({
   'click': function(){
-    console.log("selected labels: ", $("#labelSelector").val());
+    //console.log("selected labels: ", $("#labelSelector").val());
   }
 })
 Template.uploadedFiles.helpers({

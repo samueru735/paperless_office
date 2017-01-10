@@ -1,16 +1,32 @@
+.filler{
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+  float: left;
+}
 
 #uploadButton {
-  clear: both;
-  float: left;
-  position: relative;
 
+  float: left !important;
+  position: relative;
   top: 26px;
-  display: inline-block;
+  margin-bottom: 40px;
+  display: block;
   width: 52px;
   height: 52px;
   line-height: 44px;
   text-align: center;
   color: #fff;
+  left: initial;
   font-size: 34px;
   border-radius: 4px 4px 4px 4px;
+}
+#uploader{
+   display: block;
+  }
+
+#uploaderResultsPanel{
+ 
 }
