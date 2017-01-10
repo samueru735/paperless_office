@@ -43,6 +43,9 @@ SearchSource.defineSource('Images', function(searchText, options) {
     //var selectorHead = (hash === "")? "{'userId': id},{'meta.labels': hash}" :
 
     if(hash.length > 0){
+      for(i=0;i < hash.length;i++){
+        hash[i] = buildRegExp(hash[i]);
+      }
       selectorHead = {'meta.labels':{$all:hash}};
       console.log("hashed??");
       console.log("selectorHead:", selectorHead);
