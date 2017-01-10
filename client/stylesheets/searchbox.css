@@ -71,6 +71,3 @@
 #searchResultsPanel{
   /*overflow: auto;*/
 }
-.collapsed {
-  visibility: collapse;
-}
